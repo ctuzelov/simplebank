@@ -19,4 +19,13 @@ sqlc:
 sqlcw:
 	docker run --rm -v ${CURDIR}:/src -w /src kjconroy/sqlc generate
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc sqlcw
+psql:
+	docker exec -it postgres12  psql -U root -d simplebank
+
+root:
+	docker exec -it postgres12  psql -U root
+
+test:
+	go test -v -cover ./...
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc sqlcw psql
